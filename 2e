@@ -1,0 +1,40 @@
+#include<stdio.h> 
+#include<math.h>
+main()
+{
+int i,N,k,n; 
+float x[10];
+float real,imaginary,w,magnitude,phase; 
+float real_array[10],imaginary_array[10]; 
+printf("Enter the length of DFT:"); 
+scanf("%d",&N);
+printf("Enter the value of x[n]:"); 
+for(i=0;i<N;i++) scanf("%f",&x[i]); 
+for(k=0;k<N;k++)
+{
+real_array[k]=0; 
+imaginary_array[k]=0;
+
+real=0; 
+imaginary=0;
+for(n=0;n<N;n++)
+{
+w=(2*3.1416*k*n)/N;
+real=real+(x[n]*cos(w));
+imaginary=imaginary+(x[n]*sin(w));
+}
+real_array[k]=real; 
+imaginary_array[k]=-imaginary;
+}
+printf("The output sequence:\n"); 
+for(k=0;k<N;k++){
+magnitude=0; phase=0;
+printf("%f + i%f ",real_array[k],imaginary_array[k]); 
+magnitude=sqrt((real_array[k]*real_array[k])+
+(imaginary_array[k]*imaginary_array[k]));
+%atan2(y,x) computes inverse tan(y/x), the value in the range %[-π, π]
+phase=atan2(imaginary_array[k],real_array[k]);
+printf("\t\t Magnitude:%f",magnitude); 
+printf("\t\t Phase(rad):%f\n",phase);
+}
+}
