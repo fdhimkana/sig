@@ -1,0 +1,6 @@
+%To find the autocorrelation of the given sequence using inbuilt function
+x=input('Type in the sequence: ');
+%user_range=input('Type in the range: '); [autocor_x,lags]=xcorr(x);
+disp('The autocorrelation of given sequence: '); disp(autocor_x);
+disp(lags);
+%To display stem(lags,autocor_x); xlabel('Lag index'); ylabel('Amplitude') title('Autocorrelation');
