@@ -1,0 +1,5 @@
+first_seq=input('Enter the first sequence: ');
+second_seq=input('Enter the second sequence: ');
+lin_conv=conv(first_seq,second_seq);
+disp('The linear convolution of given two sequences is: ');
+disp(line_conv);
