@@ -1,0 +1,51 @@
+#include<stdio.h>
+#include<math.h>
+int y[30];
+void main()
+{
+int m,n,x[30],h[30],i,j,temp_conv,temp,k;
+printf("Enter the length of the first sequence\n");
+scanf("%d",&m);
+printf("Enter the length of the second sequence\n");
+scanf("%d",&n);
+printf("Enter the first sequence\n");
+for(i=0;i<m;i++)
+scanf("%d",&x[i]);
+printf("Enter the second sequence\n");
+for(j=0;j<n;j++)
+scanf("%d",&h[j]);
+/* Pad the smaller sequence with zeros if the lengths are
+unequal*/
+if((m-n)!=0)
+{
+if(m>n)
+{
+for(i=n;i<m;i++)
+h[i]=0;
+n=m;
+}
+else
+{
+for(i=m;i<n;i++)
+x[i]=0;
+m=n;
+}
+}
+for(j=0;j<m;j++)
+{
+y[j]=0;
+temp_conv=0;
+for(k=0;k<m;k++)
+{
+if((j-k)<0)
+temp=j-k+m;
+else
+temp=j-k;
+temp_conv=temp_conv+x[k]*h[temp];
+}
+y[j]=temp_conv;
+}
+printf("The circular convolution is\n");
+for(i=0;i<m;i++)
+printf("%d \t",y[i]);
+}
