@@ -1,0 +1,21 @@
+first_seq=input('Enter the first sequence: ');
+second_seq=input('Enter the second sequence: ');
+n1=length(first_seq);
+n2=length(second_seq);
+len_out=n1+n2-1;
+%zero padding
+first_seq=[first_seq,zeros(1,(len_out-n1))];
+second_seq=[second_seq,zeros(1,(len_out-n2))];
+line_conv=[];
+for i=1:len_out
+temp=0;
+temp_index=i;
+for temp_lag=1:i
+temp=temp+first_seq(temp_lag)*second_seq(temp_index);
+temp_index= temp_index-1;
+end
+end
+line_conv=[line_conv,temp];
+%To display on command window
+disp('The linear convolution of given two sequences is: ');
+disp(line_conv);
