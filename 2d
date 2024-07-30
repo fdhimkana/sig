@@ -1,0 +1,50 @@
+% cross-correlation using formula
+x=input('Type in first sequence: '); 
+y=input('Type in second sequence: '); 
+nx=length(x);
+ny=length(y); 
+len_max=max(nx,ny); 
+maxlag=2*len_max-1; 
+crosscor_xy=[]; lag_save=[];
+%zero padding if(nx~=ny)
+if(nx<len_max) x=[x,zeros(1,(len_max-nx))]; 
+end
+if(ny<len_max) y=[y,zeros(1,(len_max-ny))];
+end
+end
+for lag=-(len_max-1):(len_max-1) yshifted=[];
+xmod=[]; r=0;
+lag_save=[lag_save,lag];
+
+if(lag<=-1)
+lag_temp=lag.*-1; yshifted=[y,zeros(1,lag_temp)]; 
+xmod=[zeros(1,lag_temp),x];
+end
+
+if(lag>=1)
+yshifted=[zeros(1,lag),y];
+
+xmod=[x,zeros(1,lag)];
+
+
+end
+
+end
+
+if(lag==0)
+yshifted=y; 
+xmod=x;
+
+for k=1:len_max r=r+yshifted(k)*xmod(k); 
+end
+crosscor_xy=[crosscor_xy,r];
+end
+
+disp(['The crosscorrelation of given sequences: ',num2str(crosscor_xy)]);
+disp(['The number of lags: ',num2str(maxlag)]); disp(['The lags: ',num2str(lag_save)]);
+%To display
+
+stem(lag_save,crosscor_xy); 
+xlabel('Lag index');
+ylabel('Amplitude') 
+title('crosscorrelation');
