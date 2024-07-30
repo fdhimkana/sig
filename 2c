@@ -1,0 +1,7 @@
+x=input('enter the first sequence: '); y=input('enter the second sequence:');
+
+[crosscor_xy,lags]=xcorr(x,y);
+disp(['crosscorrelation of sequences:',num2str(crosscor_xy)]); disp(['The lags:',num2str(lags)]); stem(lags,crosscor_xy); xlabel('Lag index');
+ylabel('Amplitude') title('Crosscorrelation');
+
+
