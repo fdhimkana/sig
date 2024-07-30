@@ -1,0 +1,21 @@
+first_seq=input('Enter the first sequence: ');
+second_seq=input('Enter the second sequence: ');
+n1=length(first_seq);
+n2=length(second_seq);
+l_max=max(n1,n2);
+%zero padding
+if(n1~=n2)
+if(n1<l_max)
+first_seq=[first_seq,zeros(1,(l_max-n1))];
+elseif(n2<l_max)
+second_seq=[second_seq,zeros(1,(l_max-n2))];
+end
+temp_1=first_seq';
+disp('matrix for circular conv=');
+disp(temp_1);
+for i=1:l_max-1
+temp_1=[temp_1,(circshift(first_seq',i))];
+end
+cir_conv=temp_1*(second_seq)';
+disp('The circular convolution of given two sequences is: ');
+disp(cir_conv’);
