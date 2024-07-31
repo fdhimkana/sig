@@ -1,19 +1,26 @@
-x=input('Type in the sequence: '); maxlag=2*length(x)-1;
-autocor_x=[]; lag_save=[]; len=length(x);
-for lag=-(len-1):(len-1) lag_save=[lag_save,lag];
-
-xshifted=[]; xmodified=[]; r=0;
-if(lag<=-1)
-temp_lag=lag.*-1; xshifted=[x,zeros(1,temp_lag)]; xmod=[zeros(1,temp_lag),x];
-end if(lag>=1)
-xshifted=[zeros(1,lag),x]; xmod=[x,zeros(1,lag)];
+x = input('Type in the sequence: ');
+len = length(x);
+maxlag = 2 * len - 1;
+autocor_x = zeros(1, maxlag);
+lag_save = -len+1:len-1;
+for lag = lag_save
+ if lag < 0
+ xshifted = [x, zeros(1, -lag)];
+ xmod = [zeros(1, -lag), x];
+ elseif lag > 0
+ xshifted = [zeros(1, lag), x];
+ xmod = [x, zeros(1, lag)];
+ else
+ xshifted = x;
+ xmod = x;
+ end
+ r = sum(xshifted .* xmod);
+ autocor_x(lag + len) = r; % adjust index for storage
 end
-if(lag==0)
-xshifted=x; xmod=x;
-for k=1:length(xshifted) r=r+xshifted(k)*xmod (k);
-end autocor_x=[autocor_x,r];
-end
-disp(['The number of lags: ',num2str(maxlag)]);
-disp(['The autocorrelation of given sequence: ',num2str(autocor_x)]);
-disp(['The lags:',num2str(lag_save)]); stem(lag_save,autocor_x);
-xlabel('Lag index'); ylabel('Amplitude') title('Autocorrelation');
+disp(['The number of lags: ', num2str(maxlag)]);
+disp(['The autocorrelation of given sequence: ', num2str(autocor_x)]);
+disp(['The lags: ', num2str(lag_save)]);
+stem(lag_save, autocor_x);
+xlabel('Lag index');
+ylabel('Amplitude');
+title('Autocorrelation');
