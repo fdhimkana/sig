@@ -1,0 +1,47 @@
+clc;
+clear all; 
+close all; 
+n=0:2:50;
+f=input('Enter the value of frequency'); 
+a=input('Enter the value of amplitude'); 
+N=input('Enter the length of unit step');
+% Generation of Sinusoidal Signal 
+subplot(3,3,1); 
+y=a*sin(2*pi*f*n);
+stem(n,y,'r');
+xlabel('time'); 
+ylabel('amplitude'); 
+title('sine wave') 
+grid on; % Generation of Cosine Signal 
+subplot(3,3,2); 
+z=a*cos(2*pi*f*n);
+stem(n,z);
+xlabel('time'); 
+ylabel('amplitude');
+title('cosine wave') 
+grid on;% Generation of Square
+Signal 
+subplot(3,3,3); 
+s=a*square(2*pi*f*n); 
+stem(n,s);
+xlabel('time')
+; 
+ylabel('amplit
+ude'); 
+title('square
+wave') grid 
+on; % Generation of Ramp
+Signal subplot(3,3,4);
+stem(n,n);
+xlabel('time')
+; 
+ylabel('amplit
+ude'); 
+title('ramp 
+wave')
+grid on; % Generation of Unit
+Step Signal x=0:N-1;
+d=ones(1,N);
+subplot(3,3,5);
+stem(x,d,'r');
+xlabel('time'); ylabel('amplitude'); title('unitstepwave')grid on;
