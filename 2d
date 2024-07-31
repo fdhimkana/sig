@@ -1,50 +1,30 @@
-% cross-correlation using formula
-x=input('Type in first sequence: '); 
-y=input('Type in second sequence: '); 
-nx=length(x);
-ny=length(y); 
-len_max=max(nx,ny); 
-maxlag=2*len_max-1; 
-crosscor_xy=[]; lag_save=[];
-%zero padding if(nx~=ny)
-if(nx<len_max) x=[x,zeros(1,(len_max-nx))]; 
+x = input('Type in the first sequence: ');
+y = input('Type in the second sequence: ');
+len_x = length(x);
+len_y = length(y);
+maxlag = len_x + len_y - 1;
+crosscor_xy = zeros(1, maxlag);
+lag_save = -(len_y-1):(len_x-1);
+for lag = lag_save
+ if lag < 0
+ yshifted = [y, zeros(1, -lag)];
+ xmod = [zeros(1, -lag), x];
+ elseif lag > 0
+ yshifted = [zeros(1, lag), y];
+ xmod = [x, zeros(1, lag)];
+ else
+ yshifted = y;
+ xmod = x;
+ end
+ 
+ common_len = min(length(yshifted), length(xmod));
+ r = sum(yshifted(1:common_len) .* xmod(1:common_len));
+ crosscor_xy(lag + len_y) = r; % adjust index for storage
 end
-if(ny<len_max) y=[y,zeros(1,(len_max-ny))];
-end
-end
-for lag=-(len_max-1):(len_max-1) yshifted=[];
-xmod=[]; r=0;
-lag_save=[lag_save,lag];
-
-if(lag<=-1)
-lag_temp=lag.*-1; yshifted=[y,zeros(1,lag_temp)]; 
-xmod=[zeros(1,lag_temp),x];
-end
-
-if(lag>=1)
-yshifted=[zeros(1,lag),y];
-
-xmod=[x,zeros(1,lag)];
-
-
-end
-
-end
-
-if(lag==0)
-yshifted=y; 
-xmod=x;
-
-for k=1:len_max r=r+yshifted(k)*xmod(k); 
-end
-crosscor_xy=[crosscor_xy,r];
-end
-
-disp(['The crosscorrelation of given sequences: ',num2str(crosscor_xy)]);
-disp(['The number of lags: ',num2str(maxlag)]); disp(['The lags: ',num2str(lag_save)]);
-%To display
-
-stem(lag_save,crosscor_xy); 
+disp(['The number of lags: ', num2str(maxlag)]);
+disp(['The cross-correlation of the given sequences: ', num2str(crosscor_xy)]);
+disp(['The lags: ', num2str(lag_save)]);
+stem(lag_save, crosscor_xy);
 xlabel('Lag index');
-ylabel('Amplitude') 
-title('crosscorrelation');
+ylabel('Amplitude');
+title('Cross-Correlation');
